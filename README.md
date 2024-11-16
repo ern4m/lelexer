@@ -6,3 +6,6 @@ Nesta etapa é implementado um simples parser/tradutor para traduzir um bytearra
 
 ### 2. Analisador léxico
 Nesta etapa é realizada a introdução às características e responsabilidades de um analisador léxico e como ocorre a interação deste com o analisador sintático. Além disso, são apresentadas possíveis abordagens de implementação de um analisador léxico como: scanners por tabela, scanners diretos e ad hoc (este faz uso de ferramentas dedicadas à geração de lexers através da definição das regras acerca dos tokens)
+
+### 3. Refatorando o tradutor: incluindo o analisador léxico 
+Neste tópico é removida do Parser a responsabilidade de iterar sobre o bytearray e gerar tokens, introduzindo uma nova classe Scanner para realizar essa funcionalidade e retornar tokens a serem utilizados pelo parser.
