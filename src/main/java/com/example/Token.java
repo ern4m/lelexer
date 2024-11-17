@@ -7,8 +7,12 @@ public class Token {
         MINUS,
         MULT,
         DIV,
-        //Literals
+        EQ,
+        SEMICOLON,
+        // Literals
         NUMBER,
+        IDENT,
+        LET,
         EOF,
     }
 
@@ -21,6 +25,6 @@ public class Token {
     }
 
     public String toString() {
-        return "<" +  type + ">" + lexeme + "</" +  type + ">";
+        return "<" + type + ">" + lexeme + "</" + type + ">";
     }
 }

@@ -13,7 +13,7 @@ public class Parser {
     // Setting Parser input as the given byte array
     public Parser(byte[] input) {
         // instatiante a new Scan
-        // so our parser will be using a Scanner 
+        // so our parser will be using a Scanner
         // instead of it's own previously implemented parsing
         scan = new Scanner(input);
         currentToken = scan.nextToken();
@@ -27,12 +27,13 @@ public class Parser {
 
     // Parsing method
     public void parse() {
-        expr();
+        // expr();
+        letStatement();
     }
 
     // Method to match given TokenType with current TokenType
     private void match(TokenType t) {
-        // Updated function to work based on the Scanner 
+        // Updated function to work based on the Scanner
         if (currentToken.type == t) {
             nextToken();
         } else {
@@ -44,8 +45,18 @@ public class Parser {
     // defining valid symbols in the grammar as 'functions'
     // so expr() calls digit() and oper()
     void expr() {
-        number(); // this form makes obligatory that first char is an digit (?)
+        term(); // this form makes obligatory that first char is an digit (?)
         oper();
+    }
+
+    void term() {
+        if (currentToken.type == TokenType.NUMBER) {
+            number();
+        } else if (currentToken.type == TokenType.IDENT) {
+            ident();
+        } else {
+            throw new Error("Syntax Error");
+        }
     }
 
     // verifies if the currentToken type is of TokenType.NUMBER
@@ -54,30 +65,47 @@ public class Parser {
         match(TokenType.NUMBER);
     }
 
+    void ident() {
+        System.out.println("ident " + currentToken.lexeme);
+        match(TokenType.IDENT);
+    }
+
+    // letStatement -> 'let' identifier '=' expression ';'
+    void letStatement() {
+        match(TokenType.LET);
+        var id = currentToken.lexeme;
+        match(TokenType.IDENT);
+        match(TokenType.EQ);
+        expr();
+        System.out.println("pop " + id);
+        match(TokenType.SEMICOLON);
+    }
+
     // verifies if the currentToken is in the operators list + | - | ε
     void oper() {
         // checks if currentToken is of type +
         if (currentToken.type == TokenType.PLUS) {
             match(currentToken.type); // matches for sync
-            number(); // checks for digit
+            term(); // checks for digit
             System.out.println("add"); // if no errors thrown, outs "add"
             oper(); // checks for operators again (part of the recursive implementation)
         } else if (currentToken.type == TokenType.MINUS) {
             // same as above but for '-'
             match(TokenType.MINUS);
-            number();
+            term();
             System.out.println("sub");
             oper();
-        } else if (currentToken.type == TokenType.MULT) { // not sure if these are the best impl for multiplication and division
+        } else if (currentToken.type == TokenType.MULT) { // not sure if these are the best impl for multiplication and
+                                                          // division
             // same as above but for '*'
             match(TokenType.MULT);
-            number();
+            term();
             System.out.println("mul");
             oper();
         } else if (currentToken.type == TokenType.DIV) {
             // same as above but for '/'
             match(TokenType.DIV);
-            number();
+            term();
             System.out.println("div");
             oper();
         }
