@@ -5,6 +5,8 @@ public class Token {
     public enum TokenType {
         PLUS,
         MINUS,
+        MULT,
+        DIV,
         //Literals
         NUMBER,
         EOF,
