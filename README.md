@@ -14,3 +14,6 @@ Neste tópico é removida do Parser a responsabilidade de iterar sobre o bytearr
 Nesta etapa é tratado o caso de entradas numéricas de múltiplos dígitos tanto através da implementação via String, quanto a partir da implementação por Tokens, realizando a tipificação dos tokens de acordo com sua finalidade (operators e literals).
 
 A classe Token faz uso de um enumerador para definir os tipos possíveis de um token, e de uma String para manter o valor que foi '_parseado_'.
+
+### 5. Atualizando o Parser para suportar number
+Nesta etapa se alterou o '_matching_' realizado na classe Parser, que previamente era através de comparação de _char_, que agora passa a ser realizado por comparações de TokenType. Além disso, fora realizada o tratamento no Scanner para evitar erros durante a leitura de _whitespaces_ durante a formação dos tokens.

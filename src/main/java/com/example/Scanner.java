@@ -29,18 +29,6 @@ public class Scanner {
         }
     }
 
-    // Number token 'type'
-    // Travel over the input and creates an string in the interval that it keeps
-    // catching digits
-    private String _number() {
-        int start = current;
-        while (Character.isDigit(peek())) {
-            advance();
-        }
-        String n = new String(input, start, current - start);
-        return n;
-    }
-
     // Handling numbers as Token
     private Token number() {
         int start = current;
@@ -54,6 +42,7 @@ public class Scanner {
     // Matches if is digit or oper and returns the char at current cursor
     // in this setup it only treats unique chars tokens
     public Token nextToken() {
+        skiptWhiteSpace();
         // current cursor char
         char ch = peek();
 
@@ -77,13 +66,23 @@ public class Scanner {
                 advance();
                 return new Token(TokenType.EOF, "EOF");
             case '*':
-                break;
+                advance();
+                return new Token(TokenType.MULT, "MULT");
             case '/':
-                break;
+                advance();
+                return new Token(TokenType.DIV, "DIV");
             default:
                 break;
         }
 
         throw new Error("Lexical Error");
+    }
+
+    private void skiptWhiteSpace() {
+        char ch = peek();
+        while(ch == ' ' || ch == '\r' || ch == '\t' || ch == '\n') {
+            advance();
+            ch = peek();
+        }
     }
 }
