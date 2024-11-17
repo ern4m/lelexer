@@ -17,3 +17,6 @@ A classe Token faz uso de um enumerador para definir os tipos possíveis de um t
 
 ### 5. Atualizando o Parser para suportar number
 Nesta etapa se alterou o '_matching_' realizado na classe Parser, que previamente era através de comparação de _char_, que agora passa a ser realizado por comparações de TokenType. Além disso, fora realizada o tratamento no Scanner para evitar erros durante a leitura de _whitespaces_ durante a formação dos tokens.
+
+### 6. Atualizando o Scanner e Parser para suportar variáveis
+Nesta etapa foram realizadas alterações em todas as partes existentes, desde a adição de novos tipos de tokens para abranger LET, EQ e SEMICOLON, até a criação de um mecanismo utilizando HashMap para guardar os identificadores 'especiais' para podermos fazer uma diferenciação destes através da comparação do tipo dentro da função _identifier()_. Além disso, foram introduzidas funções auxiliares para verificarmos se o cursor está apontando para um valor alfaNumérico (necessário para obtermos identificadores). Por fim, dentro da classe Parser foi realizada a reorganização da disposição da gramática, uma vez que agora temos novos termos, criando a função term() para tratar NUMBER e IDENT, junto à definição do conceito de atribuição através da fuunção letStatement().
