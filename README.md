@@ -20,3 +20,8 @@ Nesta etapa se alterou o '_matching_' realizado na classe Parser, que previament
 
 ### 6. Atualizando o Scanner e Parser para suportar variáveis
 Nesta etapa foram realizadas alterações em todas as partes existentes, desde a adição de novos tipos de tokens para abranger LET, EQ e SEMICOLON, até a criação de um mecanismo utilizando HashMap para guardar os identificadores 'especiais' para podermos fazer uma diferenciação destes através da comparação do tipo dentro da função _identifier()_. Além disso, foram introduzidas funções auxiliares para verificarmos se o cursor está apontando para um valor alfaNumérico (necessário para obtermos identificadores). Por fim, dentro da classe Parser foi realizada a reorganização da disposição da gramática, uma vez que agora temos novos termos, criando a função term() para tratar NUMBER e IDENT, junto à definição do conceito de atribuição através da fuunção letStatement().
+
+### 7. Incluindo comando de impressão
+Através da implementação de um novo possível tipo em nossos tokens e de uma nova keyword no HashMap temos a possibilidade de um statement _**print**_ do 'tipo' _printStament -> 'print' expression ';'_. Desse modo, assim como a implementação do _**let**_ temos que realizar alterações no Parser, uma vez que o tratamento de novos identifiers em nosso Scanner já está estabelecido.
+
+Desse modo, realizamos a implementação da função _printStatement()_ como definida acima e, além disso, agora podemos agrupar nossos programas escritos como conjuntos de statements, limitando nosso Parser a aceitar somente statements que sejam válidos de acordo com as definições de statements implementadas(printStatement e letStatement).

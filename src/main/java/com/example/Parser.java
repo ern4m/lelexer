@@ -27,8 +27,7 @@ public class Parser {
 
     // Parsing method
     public void parse() {
-        // expr();
-        letStatement();
+        statements(); // no need for expr() since statements() wraps all expressions of the grammar.
     }
 
     // Method to match given TokenType with current TokenType
@@ -79,6 +78,32 @@ public class Parser {
         expr();
         System.out.println("pop " + id);
         match(TokenType.SEMICOLON);
+    }
+
+    // printStament -> 'print' expression ';'
+    void printStatement() {
+        match(TokenType.PRINT);
+        expr();
+        System.out.println("print");
+        match(TokenType.SEMICOLON);
+    }
+
+    // all statements possibilities
+    void statement() {
+        if (currentToken.type == TokenType.PRINT) {
+            printStatement();
+        } else if (currentToken.type == TokenType.LET) {
+            letStatement();
+        } else {
+            throw new Error("Syntax Error");
+        }
+    }
+
+    // program is now defined by all statements combinations
+    void statements() {
+        while (currentToken.type != TokenType.EOF) {
+            statement();            
+        }
     }
 
     // verifies if the currentToken is in the operators list + | - | ε

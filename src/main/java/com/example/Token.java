@@ -13,6 +13,7 @@ public class Token {
         NUMBER,
         IDENT,
         LET,
+        PRINT,
         EOF,
     }
 
