@@ -1,5 +1,7 @@
 package com.example;
 
+import com.example.Token.TokenType;
+
 public class Scanner {
     private byte[] input;
     private int current;
@@ -13,7 +15,7 @@ public class Scanner {
     private char peek() {
         if (current < input.length) {
             // return the byte value at the current position casted as char
-            return (char) input[current];
+            return (char) (input[current]);
         }
         // return ASCII for Null
         return '\0';
@@ -22,29 +24,58 @@ public class Scanner {
     // Increases the cursor value
     private void advance() {
         char ch = peek();
-        if(ch != '\0') {
+        if (ch != '\0') {
             current++;
         }
     }
 
+    // Number token 'type'
+    // Travel over the input and creates an string in the interval that it keeps
+    // catching digits
+    private String _number() {
+        int start = current;
+        while (Character.isDigit(peek())) {
+            advance();
+        }
+        String n = new String(input, start, current - start);
+        return n;
+    }
+
+    // Handling numbers as Token
+    private Token number() {
+        int start = current;
+        while (Character.isDigit(peek())) {
+            advance();
+        }
+        String n = new String(input, start, current - start);
+        return new Token(TokenType.NUMBER, n);
+    }
+
     // Matches if is digit or oper and returns the char at current cursor
     // in this setup it only treats unique chars tokens
-    public char nextToken() {
+    public Token nextToken() {
         // current cursor char
         char ch = peek();
 
         // digit handling
-        if(Character.isDigit(ch)) {
+        if (ch == '0') {
             advance();
-            return ch;
+            return new Token(TokenType.NUMBER, Character.toString(ch));
+        } else if (Character.isDigit(ch)) {
+            return number();
         }
 
         // oper handling
-        switch(ch) {
+        switch (ch) {
             case '+':
+                advance();
+                return new Token(TokenType.PLUS, "+");
             case '-':
                 advance();
-                return ch;
+                return new Token(TokenType.MINUS, "-");
+            case '\0':
+                advance();
+                return new Token(TokenType.EOF, "EOF");
             case '*':
                 break;
             case '/':
@@ -53,6 +84,6 @@ public class Scanner {
                 break;
         }
 
-        return '\0';
+        throw new Error("Lexical Error");
     }
 }
