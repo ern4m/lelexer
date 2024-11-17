@@ -13,4 +13,4 @@ Neste tópico é removida do Parser a responsabilidade de iterar sobre o bytearr
 ### 4. Suportando o tipo de token number
 Nesta etapa é tratado o caso de entradas numéricas de múltiplos dígitos tanto através da implementação via String, quanto a partir da implementação por Tokens, realizando a tipificação dos tokens de acordo com sua finalidade (operators e literals).
 
-A classe Token faz uso de um enumerador para definir os tipos possíveis de um token, e de uma String para manter o valor que foi _parseado_.
+A classe Token faz uso de um enumerador para definir os tipos possíveis de um token, e de uma String para manter o valor que foi '_parseado_'.
