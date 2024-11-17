@@ -11,6 +11,6 @@ Nesta etapa é realizada a introdução às características e responsabilidades
 Neste tópico é removida do Parser a responsabilidade de iterar sobre o bytearray e gerar tokens, introduzindo uma nova classe Scanner para realizar essa funcionalidade e retornar tokens a serem utilizados pelo parser.
 
 ### 4. Suportando o tipo de token number
-Nesta etapa é tratado o caso de entradas numéricas de múltiplos dígitos tanto através da implementação via String, quanto atravvés da implementação por Tokens, realizando a tipificação dos tokens de acordo com sua finalidade (operators e literals).
+Nesta etapa é tratado o caso de entradas numéricas de múltiplos dígitos tanto através da implementação via String, quanto a partir da implementação por Tokens, realizando a tipificação dos tokens de acordo com sua finalidade (operators e literals).
 
 A classe Token faz uso de um enumerador para definir os tipos possíveis de um token, e de uma String para manter o valor que foi _parseado_.
